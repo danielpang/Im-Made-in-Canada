@@ -6,7 +6,7 @@
   },
   "scripts": {
     "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
-    "start:client": "cd react-ui && npm start",
+    "start:client": "cd react-ui && PORT=10000 npm start",
     "start:server": "cd server && npm run dev"
   }
 }
