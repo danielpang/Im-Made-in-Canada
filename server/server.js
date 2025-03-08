@@ -4,10 +4,11 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+let dotenv = require('dotenv').config({ path: '../.env' })
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-const mongodb_uri = "mongodb+srv://dpang:yAmxa59wNDbppZIM@made-in-canada.ssv37.mongodb.net/?retryWrites=true&w=majority&appName=made-in-canada";
+const MONDODB_URI = dotenv.parsed.MONGODB_URI || process.env.MONDODB_URI;
 
 // Middleware
 app.use(cors());
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
 // Connect to MongoDB
-mongoose.connect(mongodb_uri, {
+mongoose.connect(MONDODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
