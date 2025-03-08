@@ -76,7 +76,7 @@ const Item = mongoose.model('Item', itemSchema);
 
 // Routes
 app.get('*', (req,res) =>{
-    res.sendFile(path.join(__dirname+'/react-ui/build/index.html'));
+    res.sendFile(path.join('/opt/render/project/src/react-ui/build/index.html'));
 });
 
 app.get('/health_check', (req, res) => {
