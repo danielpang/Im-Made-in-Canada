@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
 });
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'react-ui/build')));
 
 // Connect to MongoDB
 mongoose.connect(MONDODB_URI, {
@@ -75,6 +75,10 @@ itemSchema.index({ name: 'text', description: 'text' });
 const Item = mongoose.model('Item', itemSchema);
 
 // Routes
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/react-ui/build/index.html'));
+});
+
 app.get('/health_check', (req, res) => {
     res.json({ message: 'Server is running' });
 });
