@@ -7,7 +7,7 @@ const fs = require('fs');
 let dotenv = require('dotenv').config({ path: '../.env' })
 
 const app = express();
-const PORT = 8000;
+const PORT = 10000;
 const MONDODB_URI = dotenv.parsed.MONGODB_URI || process.env.MONDODB_URI;
 
 // Middleware
