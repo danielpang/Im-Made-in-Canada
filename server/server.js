@@ -70,9 +70,6 @@ itemSchema.index({ name: 'text', description: 'text' });
 const Item = mongoose.model('Item', itemSchema);
 
 // Routes
-app.get('/', function(req, res){
-    res.render('index.ejs');
-  });
 
 // Create a new item
 app.post('/api/items', upload.single('image'), async (req, res) => {
