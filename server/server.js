@@ -12,14 +12,10 @@ const MONDODB_URI = dotenv.parsed.MONGODB_URI || process.env.MONDODB_URI;
 
 // Middleware
 app.use(cors());
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "im-made-in-canada.onrender.com");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 app.use(express.static(path.join(__dirname, 'react-ui/build')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 // Connect to MongoDB
 mongoose.connect(MONDODB_URI, {
