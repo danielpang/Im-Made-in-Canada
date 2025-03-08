@@ -70,6 +70,9 @@ itemSchema.index({ name: 'text', description: 'text' });
 const Item = mongoose.model('Item', itemSchema);
 
 // Routes
+app.get('/health_check', (req, res) => {
+    res.json({ message: 'Server is running' });
+});
 
 // Create a new item
 app.post('/api/items', upload.single('image'), async (req, res) => {
