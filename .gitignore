@@ -8,6 +8,7 @@
 # build
 react-ui/build
 react-ui/node_modules
+.env
 
 # testing
 /coverage
