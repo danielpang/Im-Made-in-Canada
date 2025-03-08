@@ -14,6 +14,7 @@ const MONDODB_URI = dotenv.parsed.MONGODB_URI || process.env.MONDODB_URI;
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
+app.use(express.static(__dirname + '/public'));
 
 // Connect to MongoDB
 mongoose.connect(MONDODB_URI, {
