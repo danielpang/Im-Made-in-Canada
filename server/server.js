@@ -14,8 +14,6 @@ const MONDODB_URI = dotenv.parsed.MONGODB_URI || process.env.MONDODB_URI;
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
-app.use(express.static(path.join(__dirname, 'react-ui/build')));
-app.use(express.static(path.join(__dirname, '/public')));
 
 // Connect to MongoDB
 mongoose.connect(MONDODB_URI, {
@@ -69,11 +67,6 @@ const itemSchema = new mongoose.Schema({
 itemSchema.index({ name: 'text', description: 'text' });
 
 const Item = mongoose.model('Item', itemSchema);
-
-// Routes
-app.get('*', (req,res) =>{
-    res.sendFile(path.join('/opt/render/project/src/react-ui/build/index.html'));
-});
 
 app.get('/health_check', (req, res) => {
     res.json({ message: 'Server is running' });
