@@ -13,5 +13,8 @@
     "build": "npm run client:build && npm run server:build",
     "client:build": "cd react-ui && npm install && npm run build",
     "server:build": "cd server && npm install"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }

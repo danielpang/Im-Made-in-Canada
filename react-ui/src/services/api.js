@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = process.env.NODE_ENV === 'production' ? 'https://im-made-in-canada.onrender.com/api' : '/api';
 
 const apiService = {
   // Item APIs
