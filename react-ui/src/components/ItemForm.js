@@ -12,6 +12,11 @@ import {
   Image,
   Text
 } from '@chakra-ui/react';
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
+const supabaseKey = process.env.REACT_APP_SUPABASE_API_KEY
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 const ItemForm = ({ initialValues = {}, onSubmit, submitButtonText = 'Submit' }) => {
   const [formData, setFormData] = useState({
@@ -44,13 +49,31 @@ const ItemForm = ({ initialValues = {}, onSubmit, submitButtonText = 'Submit' })
     }
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImageFile(file);
-      setPreviewUrl(URL.createObjectURL(file));
-      
-      if (errors.image) {
+  const handleImageChange = async (e) => {
+    const productImageFile = e.target.files[0];
+    if (productImageFile) {
+      setImageFile(productImageFile);
+      const uuid = crypto.randomUUID();
+      const uploadedFileName = uuid + URL.createObjectURL(productImageFile);
+
+      const { error } = await supabase
+        .storage
+        .from('product-images')
+        .upload(`public/${uploadedFileName}`, productImageFile, {
+          cacheControl: '3600',
+          upsert: true
+        })
+
+      const response = await supabase
+        .storage
+        .from('product-images')
+        .getPublicUrl(`public/${uploadedFileName}`)
+
+      if (response.data.publicUrl) {
+        setPreviewUrl(response.data.publicUrl);
+      }
+
+      if (errors.image || error) {
         setErrors({
           ...errors,
           image: null
@@ -188,7 +211,7 @@ const ItemForm = ({ initialValues = {}, onSubmit, submitButtonText = 'Submit' })
           {previewUrl && (
             <Box mt={2}>
               <Image 
-                src={previewUrl.startsWith('blob:') ? previewUrl : `http://localhost:5000${previewUrl}`}
+                src={previewUrl.startsWith('blob:') ? previewUrl : `${previewUrl}`}
                 alt="Product preview"
                 maxH="200px"
                 borderRadius="md"

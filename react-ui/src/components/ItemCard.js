@@ -13,8 +13,7 @@ import { Link } from 'react-router-dom';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 const ItemCard = ({ item }) => {
-  const baseUrl = 'http://localhost:5000'; // Replace with your actual backend URL in production
-  const imageUrl = `${baseUrl}${item.imagePath}`;
+  const imageUrl = `${item.imagePath}`;
 
   return (
     <Box

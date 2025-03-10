@@ -35,6 +35,7 @@ const ItemDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
+  const [isAdmin] = useState(false);
   const cancelRef = React.useRef();
   const toast = useToast();
   const navigate = useNavigate();
@@ -57,30 +58,41 @@ const ItemDetailPage = () => {
   }, [id]);
 
   const handleDelete = async () => {
-    try {
-      await axios.delete(`/api/items/${id}`);
-      
-      toast({
-        title: "Item deleted",
-        description: "The item has been successfully removed",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
-      
-      navigate('/');
-    } catch (error) {
-      console.error('Error deleting item:', error);
-      
+    if (!isAdmin) {
       toast({
         title: "Delete failed",
-        description: error.response?.data?.error || "Failed to delete the item",
+        description: "No permission to delete the item",
         status: "error",
         duration: 5000,
         isClosable: true,
       });
-    } finally {
       setIsDeleteAlertOpen(false);
+    } else {
+      try {
+        await axios.delete(`/api/items/${id}`);
+
+        toast({
+          title: "Item deleted",
+          description: "The item has been successfully removed",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+
+        navigate('/');
+      } catch (error) {
+        console.error('Error deleting item:', error);
+
+        toast({
+          title: "Delete failed",
+          description: error.response?.data?.error || "Failed to delete the item",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      } finally {
+        setIsDeleteAlertOpen(false);
+      }
     }
   };
 
@@ -112,8 +124,7 @@ const ItemDetailPage = () => {
     );
   }
 
-  const baseUrl = 'http://localhost:5000'; // Replace with your actual backend URL in production
-  const imageUrl = `${baseUrl}${item.imagePath}`;
+  const imageUrl = `${item.imagePath}`;
 
   return (
     <Box>
