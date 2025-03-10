@@ -2,13 +2,12 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-dotenv.config({ path: '../.env' })
 import { createClient } from '@supabase/supabase-js'
 import { error } from 'console';
 
 const app = express();
 const PORT = 8000;
-const MONDODB_URI = process.env.MONDODB_URI || dotenv?.parsed?.MONGODB_URI
+const MONDODB_URI = process.env.MONDODB_URI;
 
 // Middleware
 app.use(cors());
