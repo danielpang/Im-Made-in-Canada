@@ -58,7 +58,7 @@ const ItemDetailPage = () => {
   }, [id]);
 
   const handleDelete = async () => {
-    if (!isAdmin) {
+    if (!isAdmin && process.env.NODE_ENV === 'production') {
       toast({
         title: "Delete failed",
         description: "No permission to delete the item",

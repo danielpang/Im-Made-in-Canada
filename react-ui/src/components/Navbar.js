@@ -8,20 +8,26 @@ import {
   InputGroup, 
   InputRightElement,
   useColorModeValue,
-  Stack
+  Stack,
+  HStack
 } from '@chakra-ui/react';
-import { Link, useNavigate } from 'react-router-dom';
-import { SearchIcon } from '@chakra-ui/icons';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { SearchIcon, InfoIcon } from '@chakra-ui/icons';
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
   
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/search?query=${encodeURIComponent(searchQuery.trim())}`);
     }
+  };
+
+  const isActive = (path) => {
+    return location.pathname === path;
   };
 
   return (
@@ -80,15 +86,29 @@ const Navbar = () => {
             </InputGroup>
           </form>
           
-          <Link to="/add-item">
-            <Button 
-              colorScheme="red" 
-              size="md"
-              px={6}
-            >
-              Add Item
-            </Button>
-          </Link>
+          <HStack spacing={3}>
+            <Link to="/about">
+              <Button
+                variant={isActive('/about') ? "solid" : "ghost"}
+                colorScheme="red"
+                size="md"
+                leftIcon={<InfoIcon />}
+              >
+                About
+              </Button>
+            </Link>
+
+            <Link to="/add-item">
+              <Button
+                colorScheme="red"
+                size="md"
+                px={6}
+                variant={isActive('/add-item') ? "solid" : "outline"}
+              >
+                Add Item
+              </Button>
+            </Link>
+          </HStack>
         </Stack>
       </Flex>
     </Box>

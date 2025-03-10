@@ -9,6 +9,7 @@
 react-ui/build
 react-ui/node_modules
 .env
+server/node_modules
 
 # testing
 /coverage

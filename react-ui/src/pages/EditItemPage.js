@@ -45,7 +45,7 @@ const EditItemPage = () => {
     try {
       await axios.put(`/api/items/${id}`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
       });
       

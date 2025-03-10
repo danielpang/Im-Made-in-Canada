@@ -136,9 +136,9 @@ const ItemForm = ({ initialValues = {}, onSubmit, submitButtonText = 'Submit' })
       formDataToSend.append('proofOfOrigin', formData.proofOfOrigin);
       
       if (imageFile) {
-        formDataToSend.append('image', imageFile);
+        formDataToSend.append('imageURL', previewUrl);
       }
-      
+
       await onSubmit(formDataToSend);
       
       toast({
