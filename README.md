@@ -6,6 +6,11 @@ A full-stack web application for listing products that are made in Canada. This 
 - Search for specific products
 - Edit or delete existing products
 
+## Motivation
+I built this project to learn more about developing Fullstack applications and using MongoDB. I did deploy this application
+on Render but eventually deleted it as I'm focusing on other side projects.
+
+
 ## Tech Stack
 
 ### Backend
